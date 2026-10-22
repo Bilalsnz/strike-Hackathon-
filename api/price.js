@@ -7,7 +7,7 @@ module.exports = async function handler(req, res) {
   }
 
   const symbol = typeof req.query.symbol === 'string' ? req.query.symbol : '';
-  const upstream = new URL('https://api.strikefinance.org/price/v2/premiumIndex');
+  const upstream = new URL('https://api.strikefinance.org/price/v2/markPrice');
   if (symbol) upstream.searchParams.set('symbol', symbol);
 
   try {
@@ -32,7 +32,7 @@ module.exports = async function handler(req, res) {
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     return res.status(200).send(JSON.stringify({
-      source: 'Strike Finance public price API',
+      source: 'Strike Finance public mark-price API',
       fetchedAt: Date.now(),
       data
     }));
